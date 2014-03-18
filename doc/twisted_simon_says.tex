@@ -1,0 +1,165 @@
+%Document Class
+\documentclass[12pt,letterpaper,oneside]{article}
+
+%Packages
+\usepackage{amsmath}
+\usepackage[pdftex]{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{pdflscape}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{biblatex}
+\bibliography{reference.bib}
+\usepackage{listings}
+\usepackage{MnSymbol}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+%Settings
+\setlength\parindent{0pt} %globally suppress indentation
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\graphicspath{{Images//}} %Path to pictures
+\newcommand{\tab}{\hspace*{2em}} %Command for tab
+\hypersetup{ %Sets up the hyperlinks in the TOC
+colorlinks,
+citecolor=black,
+filecolor=black,
+linkcolor=black,
+urlcolor=black
+}
+
+\makeatletter
+\lst@Key{numbers}{none}{%
+\let\lst@PlaceNumber\@empty
+    \lstKV@SwitchCases{#1}%
+    {none&\\%
+     left&\def\lst@PlaceNumber{\llap{\normalfont
+                \lst@numberstyle{\thelstnumber}\kern\lst@numbersep}}\\%
+     leftliteral&\def\lst@PlaceNumber{\llap{\normalfont
+                \lst@numberstyle{\the\lst@lineno}\kern\lst@numbersep}}\\%
+     right&\def\lst@PlaceNumber{\rlap{\normalfont
+                \kern\linewidth \kern\lst@numbersep
+                \lst@numberstyle{\thelstnumber}}}%
+    }{\PackageError{Listings}{Numbers #1 unknown}\@ehc}}
+\makeatother 
+
+\makeatletter    
+%\lst@UserCommand\lstlistlistingname{Code}
+%\lst@UserCommand\lstlistingname{Code}
+
+\def\lst@MProcessListing{%
+    \lst@XPrintToken \lst@EOLUpdate \lsthk@InitVarsBOL
+    \global\advance\lst@lineno\@ne
+    \ifnum \lst@lineno>\lst@lastline
+        \lst@ifdropinput \lst@LeaveMode \fi
+        \ifx\lst@linerange\@empty
+            \expandafter\expandafter\expandafter\lst@EndProcessListing
+        \else
+		\ifx\lst@OutputBox\@gobble\else
+        \par\noindent \hbox{}%
+    	\fi
+          	{\bfseries\color{red} \ensuremath{\napprox}}
+            \lst@interrange
+            \lst@GetLineInterval
+            \expandafter\expandafter\expandafter\lst@SkipToFirst
+        \fi
+    \else
+        \expandafter\lst@BOLGobble
+    \fi}
+\makeatother
+   
+%Settings to properly display code in document
+\lstloadlanguages{[GNU]C++, [x86masm]Assembler}
+\lstset{%
+tabsize=4,
+numbers=leftliteral,
+numberstyle=\tiny,
+stepnumber=2,
+numbersep=5pt,
+basicstyle=\scriptsize\ttfamily,
+breaklines=true,
+escapeinside={\%*}{*)},
+keywordstyle=\bfseries\color{green!40!black},
+showstringspaces=false,
+showspaces=false,
+showtabs=false,
+belowcaptionskip=6pt,
+framexleftmargin=7mm,
+frame=shadowbox,
+rulesepcolor=\color{purple!60!black}
+}
+\lstset{prebreak=\raisebox{0ex}[0ex][0ex]
+        {\ensuremath{\lcurvearrowdown}}}
+\lstset{postbreak=\raisebox{0ex}[0ex][0ex]
+        {\ensuremath{\rcurvearrowse\space}}}
+
+\lstdefinestyle{custombash}{
+  breaklines=true,
+  xleftmargin=\parindent,
+  language=bash,
+  commentstyle=\itshape\color{blue},
+  identifierstyle=\color{orange},
+  stringstyle=\color{red},
+}
+
+\begin{document}
+
+\begin{titlepage}
+\vspace*{\fill}
+\begin{center}
+	
+%Title
+{\huge \bfseries Arduino Ignition Grant} \\[0.4cm]
+Twisted Simon Says
+\HRule \\[0.4cm]
+
+% Authors/sponsors
+\begin{minipage}{0.4\textwidth}
+%Kristin "Zaza" Soriano
+\end{minipage}
+
+\vspace*{\fill}
+
+%Bottom of the page
+{\large \today}
+\end{center}
+\end{titlepage}
+
+\numberwithin{figure}{section} %Makes Figures numbered based on section
+\numberwithin{table}{section}
+\numberwithin{lstlisting}{section}
+\pagenumbering{roman} %Page numbers roman before 1st section
+\doublespace
+\tableofcontents %Table of contentes
+\newpage
+%\listoffigures %Table of figures
+%\newpage
+\listoftables %Table of tables
+\newpage
+\lstlistoflistings %Table of listings
+\newpage
+\singlespace
+\pagenumbering{arabic} %Page numbers normal from now on
+			
+\section{Introduction}
+
+\section{Overview}
+
+\section{Lab}
+	\subsection{Background}
+	\subsection{Parts}
+	\subsection{Lab}
+		\subsubsection{Sensor Basics}
+		\subsubsection{Simon Says Basics}
+
+\newpage
+\appendix
+\section{\\Arduino Code} \label{App:AppendixA}
+
+	
+\newpage		
+\printbibliography
+
+\end{document}
