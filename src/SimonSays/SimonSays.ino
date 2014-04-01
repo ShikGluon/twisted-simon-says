@@ -4,7 +4,9 @@
 
 /*
  * IO: If all inputs are digital then this is sufficient. The format is
- * { inputPort, outputPort, activeTone }
+ * { inputPort, outputPort, activeTone }. The reference design uses the
+ * same pin for input and output but it is assumed that these pins will
+ * often be different for non-digital input devices.
  */
 int P1[] = {2,2, 220*10};
 int P2[] = {3,3, 220*12};
@@ -54,8 +56,17 @@ void writeTone(int n) {
  * the tone associated with that port
  */
 void writePort(int n, int v) {
-  digitalWrite(IOports[n][1], !v);
-  if(v) writeTone(n);
+  /* The reference design will short to ground if we ever write 1 to
+   * disable the light while the switch is depressed. Instead we put
+   * the pin in high impedance (input) if OFF is requested
+   */
+  if(v) {
+    pinMode(IOports[n][1], OUTPUT);
+    digitalWrite(IOports[n][1], 0);
+    writeTone(n);
+  } else {
+    pinMode(IOports[n][1], INPUT);
+  }
 }
 
 /*
