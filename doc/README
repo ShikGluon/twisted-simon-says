@@ -1,0 +1,3 @@
+Only push the .tex and .bib files to the repo! DO NOT push the other LaTex files, they are not necessary and will only make the repo have issues if more than one person compiles the document. 
+
+:)
