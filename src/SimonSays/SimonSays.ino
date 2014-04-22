@@ -1,17 +1,19 @@
+#include "pitches.h"
+
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define MAX_PATTERN 6
+#define MAX_PATTERN 20
 #define INITIAL_DELAY 1000
 
 /*
  * IO: If all inputs are digital then this is sufficient. The format is
- * { inputPort, outputPort, activeTone }. The reference design uses the
+ * { inputPort, outputPort, activeTone, threshold }. The reference design uses the
  * same pin for input and output but it is assumed that these pins will
  * often be different for non-digital input devices.
  */
-int P1[] = {2,2, 220*10};
-int P2[] = {3,3, 220*12};
-int P3[] = {4,4, 220*18};
-int P4[] = {5,5, 220*16};
+int P1[] = {2, 2, NOTE_C4, 0};
+int P2[] = {3, 3, NOTE_G3, 0};
+int P3[] = {A1, 4, NOTE_GS3, 200};
+int P4[] = {A0, 5, NOTE_B3, 400};
 
 int* IOports[] = {P1, P2, P3, P4};
 
@@ -41,7 +43,12 @@ int patternDelay = INITIAL_DELAY;
  * port isn't a simple digital IO pin
  */
 int readPort(int n) {
-  return !digitalRead(IOports[n][0]);
+  if(!IOports[n][3])
+    return !digitalRead(IOports[n][0]);
+  else {
+    //Serial.println(analogRead(IOports[n][0]));
+    return (analogRead(IOports[n][0]) < IOports[n][3]);
+  }
 }
 
 /*
@@ -125,8 +132,8 @@ void prepareWrite() {
  */
 void prepareRead() {
   for(int i = 0; i < ARRAY_SIZE(IOports); i++) {
-    pinMode(IOports[i][0], INPUT);
-    pinMode(IOports[i][1], INPUT);
+      pinMode(IOports[i][0], INPUT);
+      pinMode(IOports[i][1], INPUT);
   }
 }
 
