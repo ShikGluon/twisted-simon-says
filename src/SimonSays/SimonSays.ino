@@ -156,12 +156,11 @@ void loop() {
     // make this pattern more challenging than the previous pattern
     patternLength = patternLength + 1;
     if(patternLength > MAX_PATTERN) {
-      patternLength = 2;
-      patternDelay = patternDelay / 2;
+      patternLength = 1;
     }
-    for(int i = 0; i < patternLength; i++) {
-      pattern[i] = random(ARRAY_SIZE(IOports));
-    }
+   
+   pattern[patternLength] = random(ARRAY_SIZE(IOports));
+   
     patternIndex = 0;
     prepareWrite();
     clearOutput();
@@ -202,6 +201,20 @@ void loop() {
         if(unique == pattern[patternIndex]) {
           delay(patternDelay);
           patternIndex++;
+        }
+        else{
+           writeTone(4); 
+           
+          for(int n = 0; n < ARRAY_SIZE(IOports); n++){
+           pinMode(IOports[n][1], OUTPUT);
+           digitalWrite(IOports[n][1], 0);
+          }
+          
+          delay(patternDelay);
+          
+          state = INIT_PATTERN;
+          patternDelay = INITIAL_DELAY;
+          patternLength = 0;          
         }
       }
     }
