@@ -6,11 +6,12 @@
 
 /*
  * IO: If all inputs are digital then this is sufficient. The format is
- * { inputPort, outputPort, activeTone, threshold }. The reference design uses the
- * same pin for input and output but it is assumed that these pins will
- * often be different for non-digital input devices.
+ * { inputPort, outputPort, activeTone, threshold }. The output pins should be digital, 
+ * the input pins can be analog or digital. Analog pins should be written as A#. 
+ * The activeTone values can be found in the pitches.h file. threshold should be the value
+ * you want the sensor to be below to activate the LED. It will be 0 for digital inputs.
  */
-int P1[] = {2, 2, NOTE_C4, 0};
+int P1[] = {A4, 2, NOTE_C4, 400};
 int P2[] = {3, 3, NOTE_G3, 0};
 int P3[] = {A1, 4, NOTE_GS3, 200};
 int P4[] = {A0, 5, NOTE_B3, 400};
@@ -140,6 +141,7 @@ void prepareRead() {
 void setup() {
   // put your setup code here, to run once:
   //Serial.begin(9600);
+  randomSeed(analogRead(5));
 }
 
 /*
@@ -160,14 +162,15 @@ void loop() {
   //debugPrint();
   if(state == INIT_PATTERN) {
     // create the next pattern. advance the length or the speed to
-    // make this pattern more challenging than the previous pattern
-    patternLength = patternLength + 1;
+    // make this pattern more challenging than the previous pattern    
     if(patternLength > MAX_PATTERN) {
       patternLength = 1;
+      patternDelay = patternDelay/2;
     }
    
-   pattern[patternLength] = random(ARRAY_SIZE(IOports));
-   
+    pattern[patternLength] = random(ARRAY_SIZE(IOports));
+    
+    patternLength = patternLength + 1;
     patternIndex = 0;
     prepareWrite();
     clearOutput();
@@ -194,6 +197,7 @@ void loop() {
     // read the currently active pattern. when the input matches the
     // current token in the pattern we display it and then advance
     // to the next token. When complete, move to INIT_PATTERN state
+    // if fail reset...
     if(patternIndex == patternLength) {
       state = INIT_PATTERN;
       clearOutput();
@@ -209,7 +213,7 @@ void loop() {
           delay(patternDelay);
           patternIndex++;
         }
-        else{
+        else{ //wrong LED!
            writeTone(4); 
            
           for(int n = 0; n < ARRAY_SIZE(IOports); n++){
@@ -217,8 +221,7 @@ void loop() {
            digitalWrite(IOports[n][1], 0);
           }
           
-          delay(patternDelay);
-          
+          delay(patternDelay);          
           state = INIT_PATTERN;
           patternDelay = INITIAL_DELAY;
           patternLength = 0;          
