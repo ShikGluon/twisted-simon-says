@@ -95,13 +95,13 @@ rulesepcolor=\color{purple!60!black}
 \lstset{postbreak=\raisebox{0ex}[0ex][0ex]
         {\ensuremath{\rcurvearrowse\space}}}
 
-\lstdefinestyle{custombash}{
+\lstdefinestyle{customc}{
   breaklines=true,
   xleftmargin=\parindent,
-  language=bash,
-  commentstyle=\itshape\color{blue},
-  identifierstyle=\color{orange},
-  stringstyle=\color{red},
+  language=[GNU]C++,
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
 }
 
 \begin{document}
@@ -138,8 +138,8 @@ Brian Taylor
 \newpage
 %\listoffigures %Table of figures
 %\newpage
-\listoftables %Table of tables
-\newpage
+%\listoftables %Table of tables
+%\newpage
 \lstlistoflistings %Table of listings
 \newpage
 \singlespace
@@ -179,52 +179,16 @@ Brian Taylor
 Think fast... SIMON says, "Chase my flashing lights and sounds"!\bigskip
 \\SIMON is a computer-controlled game that consists of a base unit with 4 color lenses and a control panel. The challenge is to repeat the ever-increasing random signals that SIMON generates. If the pattern you respond is correct SIMON will add another light to the pattern.
 
-	\subsection{Sensor Basics}	
-			\subsubsection{Button}
-			If already familiar with the button, please skip to Section \ref{sec:potentiometer}. 
-			%Insert schematic w/explanation
-			%Insert Code w/explanation
-
-			\subsubsection{Potentiometer} \label{sec:potentiometer}
-			If already familiar with the potentiometer, please skip to Section \ref{sec:photocell}. 
-			%Insert schematic w/explanation
-			%Insert Code w/explanation
-			
-			\subsubsection{Photocell} \label{sec:photocell}
-			If already familiar with the photocell, please skip to Section \ref{sec:tilt}. 
-			%Insert schematic w/explanation
-			%Insert Code w/explanation
-			
-			\subsubsection{Tilt Switch} \label{sec:tilt}
-			If already familiar with the tilt switch, please skip to Section \ref{sec:touch}. 
-			%Insert schematic w/explanation
-			%Insert Code w/explanation
-
-			\subsubsection{Touch Switch} \label{sec:touch}
-			If already familiar with the touch switch, please skip to Section \ref{sec:temp}. 
-			%Insert schematic w/explanation
-			%Insert Code w/explanation
-				
-			\subsubsection{Temperature Sensor} \label{sec:temp}
-			If already familiar with the temperature sensor, please skip to Section \ref{sec:push}. 
-			%Insert schematic w/explanation
-			%Insert Code w/explanation
-			
-			\subsubsection{Custom Build Push Button} \label{sec:push}
-			If already familiar with the custom built push button, please skip to Section \ref{sec:simon}. 
-			%Insert schematic w/explanation
-			%Insert Code w/explanation		
-						
-			\subsection{Sound Basics} \label{sec:sound}
-			%insert schematic w/explanation
-			%insert code w/explanation						
+	\subsection{Wiring the Arduino} \label{sec:wire}
+	
+	\subsection{Making a Push Sensor}						
 
 \section{Procedure}
 		
 		\subsection{"Not so twisted" Simon Says}
 			\begin{enumerate}
-				\item Wire the Arduino with 4 LED's, 4 push buttons, and 1 speaker (insert refs to images)
-				\item Load the Twisted\_Simon\_Says.ino file onto the board.
+				\item Wire the Arduino with 4 LED's, 4 push buttons, and 1 speaker (See Section \ref{sec:wire})
+				\item Load the Twisted\_Simon\_Says.ino file onto the Arduino (See Appendix \ref{lst:twistedSimon})
 			\end{enumerate}
 								
 		\subsection{"Twisted" Simon Says}
@@ -232,14 +196,13 @@ Think fast... SIMON says, "Chase my flashing lights and sounds"!\bigskip
 				\item Replace one of the push buttons with an analog sensor
 				\item 
 			\end{enumerate}
-		
-
-
+			
 \newpage
 \appendix
 \section{\\Arduino Code} \label{App:AppendixA}
-
-	
+	\begin{center}
+	\lstinputlisting[caption={Twisted Simon Says Code}, label=lst:twistedSimon, style=customC]{Code/Twisted_Simon_Says.ino}	
+	\end{center}	
 \newpage		
 \printbibliography
 
