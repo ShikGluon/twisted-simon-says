@@ -111,13 +111,15 @@ rulesepcolor=\color{purple!60!black}
 \begin{center}
 	
 %Title
-{\huge \bfseries Arduino Ignition Grant} \\[0.4cm]
-Twisted Simon Says
+{\huge \bfseries "Twisted" Simon Says} \\[0.4cm]
+Arduino Ignition Grant
 \HRule \\[0.4cm]
 
 % Authors/sponsors
-\begin{minipage}{0.4\textwidth}
-%Kristin "Zaza" Soriano
+\begin{minipage}{\textwidth}
+\center
+Zaza Soriano\\
+Brian Taylor
 \end{minipage}
 
 \vspace*{\fill}
@@ -143,31 +145,38 @@ Twisted Simon Says
 \singlespace
 \pagenumbering{arabic} %Page numbers normal from now on
 			
-\section{Introduction}
+\section{Goals}
 %what is this? 
 
-\section{Overview}
+\section{References}
 %insert high level overview of the lab
+%http://www.instructables.com/id/Stickytape-Sensors/step5/Velostat/
+%http://www.instructables.com/id/Arduino-Simon-Says/
 
-\section{Background}
+\section{Hardware}
+		\begin{itemize} \parskip0pt
+			\item Arduino Board
+			\item USB Cable
+			\item Breadboard
+			\item Wires
+			\item 5 x Resistor 220$\Omega$
+			\item 4 x LED
+			\item 4 x Button
+			\item Speaker
+			\item Rotary Knob (Potentiometer)
+			\item Light Sensor (Photocell)
+			\item Motion Sensor (Tilt Switch)
+			\item Temperature Sensor
+			\item Conductive Fabric
+			\item Conductive Thread
+			\item Velostat
+			\item Tape
+			\item Scissors
+		\end{itemize}
+
+\section{Discussion}
 %Insert background on simon says and each sensor option
-
-\section{Parts}
-		\subsection{Required}
-		%insert table for lights
-		%insert table for sound
-		
-		\subsection{Optional}
-		%insert table for button
-		%insert table for potentiometer
-		%insert table for photocell
-		%insert table for tilt switch
-		%insert table for touch switch
-		%insert table for temperature sensor
-		%insert table for push button
-
-\section{Lab}
-		\subsection{Sensor Basics}
+	\subsection{Sensor Basics}	
 			\subsubsection{Button}
 			If already familiar with the button, please skip to Section \ref{sec:potentiometer}. 
 			%Insert schematic w/explanation
@@ -201,11 +210,25 @@ Twisted Simon Says
 			\subsubsection{Custom Build Push Button} \label{sec:push}
 			If already familiar with the custom built push button, please skip to Section \ref{sec:simon}. 
 			%Insert schematic w/explanation
-			%Insert Code w/explanation			
+			%Insert Code w/explanation		
+						
+			\subsection{Sound Basics} \label{sec:sound}
+			%insert schematic w/explanation
+			%insert code w/explanation						
+
+\section{Procedure}
+		
+		\subsection{"Not so twisted" Simon Says}
+			\begin{enumerate}
+				\item Wire the Arduino with 4 LED's, 4 push buttons, and 1 speaker (insert refs to images)
+				\item Load the Twisted\_Simon\_Says.ino file onto the board.
+			\end{enumerate}
 								
-		\subsection{Sound Basics} \label{sec:sound}
-		%insert schematic w/explanation
-		%insert code w/explanation		
+		\subsection{"Twisted" Simon Says}
+			\begin{enumerate}
+				\item Replace one of the push buttons with an analog sensor
+				\item 
+			\end{enumerate}
 		
 		\subsection{Simon Says Basics} \label{sec:simon}
 			%insert schematic w/explanation

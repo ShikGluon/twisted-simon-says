@@ -11,12 +11,17 @@
  * The activeTone values can be found in the pitches.h file. threshold should be the value
  * you want the sensor to be below to activate the LED. It will be 0 for digital inputs.
  */
-int P1[] = {A4, 2, NOTE_C4, 400};
-int P2[] = {3, 3, NOTE_G3, 0};
-int P3[] = {A1, 4, NOTE_GS3, 200};
-int P4[] = {A0, 5, NOTE_B3, 400};
+int P1[] = {
+  A4, 2, NOTE_C4, 400};
+int P2[] = {
+  3, 3, NOTE_G3, 0};
+int P3[] = {
+  A1, 4, NOTE_GS3, 200};
+int P4[] = {
+  A0, 5, NOTE_B3, 400};
 
-int* IOports[] = {P1, P2, P3, P4};
+int* IOports[] = {
+  P1, P2, P3, P4};
 
 // port that outputs tone. Must be PWM capable
 int tonePort = 6;
@@ -72,7 +77,8 @@ void writePort(int n, int v) {
     pinMode(IOports[n][1], OUTPUT);
     digitalWrite(IOports[n][1], 0);
     writeTone(n);
-  } else {
+  } 
+  else {
     pinMode(IOports[n][1], INPUT);
   }
 }
@@ -89,14 +95,16 @@ int uniqueRead() {
       if(didRead == -1) {
         didRead = i;
         isUnique = 1;
-      } else {
+      } 
+      else {
         isUnique = 0;
       }
     }
   }
   if(didRead != -1 && isUnique) {
     return didRead;
-  } else {
+  } 
+  else {
     return -1;
   }
 }
@@ -133,8 +141,8 @@ void prepareWrite() {
  */
 void prepareRead() {
   for(int i = 0; i < ARRAY_SIZE(IOports); i++) {
-      pinMode(IOports[i][0], INPUT);
-      pinMode(IOports[i][1], INPUT);
+    pinMode(IOports[i][0], INPUT);
+    pinMode(IOports[i][1], INPUT);
   }
 }
 
@@ -146,17 +154,17 @@ void setup() {
 
 /*
 void debugPrint() {  
-  Serial.print(uniqueRead());
-  Serial.print(" ");
-  
-  for(int i = 0; i < ARRAY_SIZE(IOports); i++) {
-    Serial.print(readPort(i));
-    Serial.print(" ");
-  }
-
-  Serial.println(state);
-}
-*/
+ Serial.print(uniqueRead());
+ Serial.print(" ");
+ 
+ for(int i = 0; i < ARRAY_SIZE(IOports); i++) {
+ Serial.print(readPort(i));
+ Serial.print(" ");
+ }
+ 
+ Serial.println(state);
+ }
+ */
 
 void loop() {
   //debugPrint();
@@ -167,16 +175,17 @@ void loop() {
       patternLength = 1;
       patternDelay = patternDelay/2;
     }
-   
+
     pattern[patternLength] = random(ARRAY_SIZE(IOports));
-    
+
     patternLength = patternLength + 1;
     patternIndex = 0;
     prepareWrite();
     clearOutput();
     state = SHOW_PATTERN;
     delay(1000);
-  } else if(state == SHOW_PATTERN) {
+  } 
+  else if(state == SHOW_PATTERN) {
     // display the currently active pattern. If we've displayed it
     // completely then advance to the read state
     if(patternIndex >= patternLength) {
@@ -185,15 +194,17 @@ void loop() {
 
       patternIndex = 0;
       state = READ_PATTERN;
-    } else {
+    } 
+    else {
       uniqueWrite(pattern[patternIndex]);
       delay(patternDelay);
-      
+
       clearOutput();
       delay(patternDelay / 2);
       patternIndex++;
     }
-  } else if(state == READ_PATTERN) {
+  } 
+  else if(state == READ_PATTERN) {
     // read the currently active pattern. when the input matches the
     // current token in the pattern we display it and then advance
     // to the next token. When complete, move to INIT_PATTERN state
@@ -201,12 +212,14 @@ void loop() {
     if(patternIndex == patternLength) {
       state = INIT_PATTERN;
       clearOutput();
-    } else {
+    } 
+    else {
       prepareRead();
       int unique = uniqueRead();
       if(unique == -1) {
         clearOutput();
-      } else {
+      } 
+      else {
         prepareWrite();
         uniqueWrite(unique);
         if(unique == pattern[patternIndex]) {
@@ -214,13 +227,13 @@ void loop() {
           patternIndex++;
         }
         else{ //wrong LED!
-           writeTone(4); 
-           
+          writeTone(4); 
+
           for(int n = 0; n < ARRAY_SIZE(IOports); n++){
-           pinMode(IOports[n][1], OUTPUT);
-           digitalWrite(IOports[n][1], 0);
+            pinMode(IOports[n][1], OUTPUT);
+            digitalWrite(IOports[n][1], 0);
           }
-          
+
           delay(patternDelay);          
           state = INIT_PATTERN;
           patternDelay = INITIAL_DELAY;
@@ -228,10 +241,12 @@ void loop() {
         }
       }
     }
-  } else {
+  } 
+  else {
     // reset
     patternLength = 0;
     patternDelay = INITIAL_DELAY;
     state = INIT_PATTERN;
   }
 }
+
