@@ -15,6 +15,10 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows}
 
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
 %Settings
 \setlength\parindent{0pt} %globally suppress indentation
 \renewcommand{\rmdefault}{phv} % Arial
@@ -181,7 +185,42 @@ To learn about various sensors and how they interact with the Arduino by making 
 \\"Twisted" Simon is a game that is controlled by an Arduino. It will have 4 LEDs each with it's own way to activate it. The LEDs could be activated by the press of a button or a flashlight, just to name a few examples (as the options are endless). The Arduino will start by lighting up a random LED, at witch point the Player will activate the appropriate LED in response (hint: the correct LED is the one the Arduino lit up). If correct, the Arduino will add a random LED to the sequence (which is now 2 long) and the process repeats itself. If the Player enters the wrong sequence, the game is lost and the Player must start over.
 
 	\subsection{Wiring the Arduino} \label{sec:wire}
-	
+Each LED can be controlled by either a digital input (Figure \ref{fig:sens2}) or an analog input (Figure \ref{fig:sens5}). When wiring the sensors, make sure they match the GPIO pins used in the code. Figure \ref{fig:schem2} shows two examples of analog sensors that can be used for this lab.\bigskip
+		\begin{figure}[here]
+	        \centering
+	        \caption{Sensor Schematics}\label{fig:schem1}
+	        \begin{subfigure}[b]{0.4\textwidth}
+                \caption{Digital sensor Schematic}
+                \includegraphics[width=.75\textwidth]{images/circuit_2.png}
+                \label{fig:sens2}
+	        \end{subfigure}%
+	        \begin{subfigure}[b]{0.4\textwidth}
+                \caption{Analog Sensor Schematic}
+                \includegraphics[width=\textwidth]{images/circuit_5.png}
+                \label{fig:sens5}
+	        \end{subfigure}
+		\end{figure}\\	\\			
+		\begin{figure}[here]
+	        \centering
+	        \caption{Analog Sensor Example Schematics}\label{fig:schem2}
+	        \begin{subfigure}[b]{0.4\textwidth}
+	       	 	\caption{Potentiometer Schematic}
+	            \includegraphics[width=\textwidth]{images/circuit_3.png}
+                \label{fig:sens3}
+	        \end{subfigure}%
+	        \begin{subfigure}[b]{0.4\textwidth}
+                \caption{Photo Resistor Schematic}
+                \includegraphics[width=\textwidth]{images/circuit_4.png}
+                \label{fig:sens4}
+	        \end{subfigure}
+		\end{figure}
+\\Figure \ref{fig:schem3} shows the entire schematic needed to wire "Twisted" SIMON to the Arduino. R5 can be substituted to get higher or lower volumes from the Piezo Buzzer. R12, R22, R32, R42 are each the various sensors that can act as the switch. \textbf{Make sure that the inputs/outputs match the values in the code!}
+			\begin{figure} [h!]
+				\centering
+				\caption{"Twisted" SIMON Schematics}
+				\includegraphics[scale=.5]{images/circuit_6.png}		
+				\label{fig:schem3}
+			\end{figure}	
 	
 	\subsection{Making a Push Sensor}
 		\begin{enumerate}
@@ -193,10 +232,10 @@ To learn about various sensors and how they interact with the Arduino by making 
 						\item 2 pieces of conductive fabric (enough for the alligator clip to work with)
 					\end{enumerate}
 				\item Place a conductive thread and fabric onto the sticky side of a piece of tape, show in Figure \ref{fig:stickyTape}
-					\begin{figure} [here]
+					\begin{figure} 
 						\centering
 						\caption{Push sensor insides}
-						\includegraphics[scale=.6]{sensor.png}		
+						\includegraphics[scale=.6]{images/sensor.png}		
 						\label{fig:stickyTape}
 					\end{figure}	
 				\item Repeat previous step
@@ -213,7 +252,7 @@ To learn about various sensors and how they interact with the Arduino by making 
 								
 		\subsection{"Twisted" SIMON}
 			\begin{enumerate}
-				\item Replace one of the push buttons with an analog sensor
+				\item Replace one of the push buttons with an analog sensor (See Section \ref{sec:wire})
 				\item Change the appropriate sensor information in the code, as an example look at line 21 in Listing \ref{lst:analog1}.
 					\begin{center}
 						\begin{minipage}{.9\textwidth}
@@ -228,10 +267,16 @@ To learn about various sensors and how they interact with the Arduino by making 
 					\end{center}
 				\item Load the modified Twisted\_Simon\_Says.ino file onto the Arduino
 			\end{enumerate}
-			\newpage
-			
+						
 		\subsection{Future SIMON}
-			
+			What kinds of twists can you think of to make this came more complex? Some examples to get your mind rolling are:
+			\begin{itemize} \parskip0pt
+				\item Make the pattern new each time it increases
+				\item Set a time limit for the play to repeat the pattern
+				\item Add more LEDs
+				\item Add multiple sensors per LED
+			\end{itemize}
+\newpage
 \appendix
 \section{\\Arduino Code} \label{App:AppendixA}
 	\begin{center}
