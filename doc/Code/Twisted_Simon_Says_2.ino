@@ -18,7 +18,7 @@ int P2[] = {
 int P3[] = {
   4, 4, NOTE_GS3, 0};
 int P4[] = {
-  A0, 5, NOTE_B3, 400};
+  5, 5, NOTE_B3, 0};
 
 int* IOports[] = {
   P1, P2, P3, P4};
@@ -44,7 +44,7 @@ int patternIndex = 0;
 int patternDelay = INITIAL_DELAY;
 
 /*
- * Read from a virtual port. 
+ * Read from a virtual port.
  */
 int readPort(int n) {
   if(!IOports[n][3])

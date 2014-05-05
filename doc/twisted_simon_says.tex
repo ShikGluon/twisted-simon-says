@@ -111,7 +111,7 @@ rulesepcolor=\color{purple!60!black}
 \begin{center}
 	
 %Title
-{\huge \bfseries "Twisted" Simon Says} \\[0.4cm]
+{\huge \bfseries "Twisted" SIMON} \\[0.4cm]
 Arduino Ignition Grant
 \HRule \\[0.4cm]
 
@@ -146,9 +146,9 @@ Brian Taylor
 \pagenumbering{arabic} %Page numbers normal from now on
 			
 \section{Goals}
-%what is this? 
+To learn about various sensors and how they interact with the Arduino by making a game based off of the classic game of SIMON.
 
-\section{References}
+\section{References} \label{sec:ref}
 \url{http://www.instructables.com/id/Arduino-Simon-Says}\\
 \url{http://www.instructables.com/id/Stickytape-Sensors/step5/Velostat}
 
@@ -175,33 +175,67 @@ Brian Taylor
 
 \section{Discussion}
 
-	\subsection{Simon Says} \label{sec:simon}
-Think fast... SIMON says, "Chase my flashing lights and sounds"!\bigskip
-\\SIMON is a computer-controlled game that consists of a base unit with 4 color lenses and a control panel. The challenge is to repeat the ever-increasing random signals that SIMON generates. If the pattern you respond is correct SIMON will add another light to the pattern.
+	\subsection{SIMON} \label{sec:simon}
+"Think fast... SIMON, 'Chase my flashing lights and sounds'!"\bigskip
+\\The classic SIMON is a computer-controlled game that consists of a base unit with 4 color lenses and a control panel. The challenge is to repeat the ever-increasing random signals that SIMON generates. If the pattern you respond is correct SIMON will add another light to the pattern.\bigskip
+\\"Twisted" Simon is a game that is controlled by an Arduino. It will have 4 LEDs each with it's own way to activate it. The LEDs could be activated by the press of a button or a flashlight, just to name a few examples (as the options are endless). The Arduino will start by lighting up a random LED, at witch point the Player will activate the appropriate LED in response (hint: the correct LED is the one the Arduino lit up). If correct, the Arduino will add a random LED to the sequence (which is now 2 long) and the process repeats itself. If the Player enters the wrong sequence, the game is lost and the Player must start over.
 
 	\subsection{Wiring the Arduino} \label{sec:wire}
 	
-	\subsection{Making a Push Sensor}						
+	
+	\subsection{Making a Push Sensor}
+		\begin{enumerate}
+				\item Gather your materials
+					\begin{enumerate}
+						\item 3 pieces of velostat (same size)
+						\item 2 pieces of tape (slightly larger than the velostat)
+						\item 2 strands of conductive thread (about the length of the velostat)
+						\item 2 pieces of conductive fabric (enough for the alligator clip to work with)
+					\end{enumerate}
+				\item Place a conductive thread and fabric onto the sticky side of a piece of tape, show in Figure \ref{fig:stickyTape}
+					\begin{figure} [here]
+						\centering
+						\caption{Push sensor insides}
+						\includegraphics[scale=.6]{sensor.png}		
+						\label{fig:stickyTape}
+					\end{figure}	
+				\item Repeat previous step
+				\item Sandwich velostat between tape making sure to overlap the conductive thread
+		\end{enumerate}						
 
 \section{Procedure}
 		
-		\subsection{"Not so twisted" Simon Says}
+		\subsection{"Not so twisted" SIMON}
 			\begin{enumerate}
 				\item Wire the Arduino with 4 LED's, 4 push buttons, and 1 speaker (See Section \ref{sec:wire})
 				\item Load the Twisted\_Simon\_Says.ino file onto the Arduino (See Appendix \ref{lst:twistedSimon})
 			\end{enumerate}
 								
-		\subsection{"Twisted" Simon Says}
+		\subsection{"Twisted" SIMON}
 			\begin{enumerate}
 				\item Replace one of the push buttons with an analog sensor
-				\item 
+				\item Change the appropriate sensor information in the code, as an example look at line 21 in Listing \ref{lst:analog1}.
+					\begin{center}
+						\begin{minipage}{.9\textwidth}
+							\lstinputlisting[caption={Twisted SIMON Sensors}, label=lst:analog1, style=customC, linerange={7-21}]{Code/Twisted_Simon_Says.ino}
+						\end{minipage}
+					\end{center}
+					To get correct threshold value, uncomment the debug lines (shown in Listing \ref{lst:analog2}), run the program, and use the serial monitor to pick an appropriate threshold for the analog sensor. 
+					\begin{center}
+						\begin{minipage}{.9\textwidth}
+							\lstinputlisting[caption={Twisted SIMON Debug}, label=lst:analog2, style=customC, linerange={49-56,147-151}]{Code/Twisted_Simon_Says.ino}
+						\end{minipage}
+					\end{center}
+				\item Load the modified Twisted\_Simon\_Says.ino file onto the Arduino
 			\end{enumerate}
+			\newpage
 			
-\newpage
+		\subsection{Future SIMON}
+			
 \appendix
 \section{\\Arduino Code} \label{App:AppendixA}
 	\begin{center}
-	\lstinputlisting[caption={Twisted Simon Says Code}, label=lst:twistedSimon, style=customC]{Code/Twisted_Simon_Says.ino}	
+		\lstinputlisting[caption={Twisted SIMON Code}, label=lst:twistedSimon, style=customC]{Code/Twisted_Simon_Says_2.ino}	
 	\end{center}	
 \newpage		
 \printbibliography
